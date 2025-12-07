@@ -36,8 +36,20 @@ async function fetchBonkGptReferenceImage(): Promise<string | null> {
   }
 }
 
+// Safely retrieve API key without crashing if process is undefined
+const getApiKey = (): string | undefined => {
+  try {
+    if (typeof process !== 'undefined' && process.env) {
+      return process.env.API_KEY;
+    }
+  } catch (e) {
+    console.warn("Environment variable access failed");
+  }
+  return undefined;
+};
+
 export const sendMessageToGemini = async (message: string, history: { role: string, parts: { text: string }[] }[]): Promise<string> => {
-  const apiKey = process.env.API_KEY;
+  const apiKey = getApiKey();
 
   if (!apiKey) {
     // Simulate network delay
@@ -91,7 +103,7 @@ export const sendMessageToGemini = async (message: string, history: { role: stri
 };
 
 export const generateMemeImage = async (prompt: string, style: string = 'cartoon', referenceImage?: string): Promise<string | null> => {
-  const apiKey = process.env.API_KEY;
+  const apiKey = getApiKey();
 
   if (!apiKey) {
     console.warn("No API Key found for image generation");

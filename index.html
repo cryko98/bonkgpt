@@ -6,6 +6,11 @@
     <title>BONK GPT | Vibe Coding AI</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
+      // Polyfill for process to prevent crashes in browser environments
+      if (typeof process === 'undefined') {
+        window.process = { env: {} };
+      }
+      
       tailwind.config = {
         theme: {
           extend: {
@@ -81,5 +86,6 @@
 </head>
   <body>
     <div id="root"></div>
+    <script type="module" src="/index.tsx"></script>
   </body>
 </html>
