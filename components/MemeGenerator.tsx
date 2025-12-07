@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Download, Sparkles, Image as ImageIcon, Zap, Type, Palette, Upload, X, Lightbulb } from 'lucide-react';
+import { Download, Sparkles, Image as ImageIcon, Zap, Type, Palette, Upload, X } from 'lucide-react';
 import { generateMemeImage } from '../services/geminiService';
 
 const STYLES = [
@@ -130,29 +130,6 @@ export const MemeGenerator: React.FC = () => {
                 className="w-full h-24 bg-white border border-gray-300 rounded-xl p-3 text-sm focus:outline-none focus:ring-2 focus:ring-bonk-orange resize-none"
                 placeholder="Describe the image you want to create..."
             />
-
-            {/* Pro Tip Box */}
-            <div className="bg-bonk-light border border-orange-200 rounded-xl p-3 flex gap-3 shadow-sm">
-                <div className="bg-white p-1.5 rounded-full h-fit border border-orange-100 shadow-sm shrink-0">
-                    <img 
-                        src="https://pbs.twimg.com/media/G7l7fKlX0AAQTAB?format=jpg&name=medium" 
-                        alt="Bonk" 
-                        className="w-8 h-8 rounded-full object-cover" 
-                    />
-                </div>
-                <div>
-                    <div className="flex items-center gap-1.5 mb-1">
-                        <Lightbulb size={12} className="text-bonk-dark fill-current" />
-                        <p className="text-[10px] font-black text-bonk-dark uppercase tracking-wider">Secret Feature</p>
-                    </div>
-                    <p className="text-xs text-gray-700 leading-relaxed">
-                        Type <span className="font-bold bg-white px-1.5 py-0.5 rounded text-bonk-dark border border-orange-100 shadow-sm">Bonk GPT</span> in your prompt to summon me!
-                    </p>
-                    <p className="text-[10px] text-gray-500 mt-1 italic">
-                        Try: "Bonk GPT trading crypto on the moon"
-                    </p>
-                </div>
-            </div>
           </div>
 
           <div className="space-y-2">

@@ -1,11 +1,18 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Send, User, RefreshCw, Code, MessageSquare, Play, Copy, Check, Terminal, FileCode, Monitor, Rocket } from 'lucide-react';
+import { Send, User, RefreshCw, Code, MessageSquare, Play, Copy, Check, Terminal, FileCode, Monitor, Rocket, Zap } from 'lucide-react';
 import { sendMessageToGemini } from '../services/geminiService';
 import { ChatMessage } from '../types';
 
+const QUICK_ACTIONS = [
+  { label: "🐍 Snake Game", prompt: "Write a fully functional Snake game in a single HTML file using Canvas. Include a Start button overlay." },
+  { label: "🐦 Flappy Bonk", prompt: "Create a Flappy Bird clone called 'Flappy Bonk' where a doge head flies through pipes. Use simple physics." },
+  { label: "🪙 Token Dashboard", prompt: "Create a modern Solana Token Dashboard UI with price charts, volume stats, and a swap interface component." },
+  { label: "🧮 ROI Calculator", prompt: "Build a Crypto ROI Calculator app that calculates potential moon profits based on investment and multiplier." }
+];
+
 export const ChatInterface: React.FC = () => {
   const [messages, setMessages] = useState<ChatMessage[]>([
-    { role: 'model', text: 'INITIATING BONK PROTOCOL v2.0...\n\nI am Bonk GPT. I build flawless apps, games, and smart contracts.\n\nTell me what to ship. 🚀' }
+    { role: 'model', text: 'INITIATING BONK PROTOCOL v1.0...\n\nI am Bonk GPT. I build flawless apps, games, and smart contracts.\n\nTell me what to ship. 🚀' }
   ]);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -51,11 +58,10 @@ export const ChatInterface: React.FC = () => {
     return clean.trim();
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!input.trim() || isLoading) return;
+  const processMessage = async (textInput: string) => {
+    if (!textInput.trim() || isLoading) return;
 
-    const userMessage: ChatMessage = { role: 'user', text: input };
+    const userMessage: ChatMessage = { role: 'user', text: textInput };
     setMessages(prev => [...prev, userMessage]);
     setInput('');
     setIsLoading(true);
@@ -94,6 +100,15 @@ export const ChatInterface: React.FC = () => {
     }
   };
 
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    processMessage(input);
+  };
+
+  const handleQuickAction = (prompt: string) => {
+    processMessage(prompt);
+  };
+
   const handleCopyCode = () => {
     if (!generatedCode) return;
     navigator.clipboard.writeText(generatedCode);
@@ -118,7 +133,7 @@ export const ChatInterface: React.FC = () => {
                 </div>
                 <div>
                     <h3 className="font-bold text-gray-900 text-sm">Bonk GPT</h3>
-                    <p className="text-[10px] text-gray-500 font-mono">Vibe_Engine_v3.1.0 [ONLINE]</p>
+                    <p className="text-[10px] text-gray-500 font-mono">Vibe_Engine_v1.0.0 [ONLINE]</p>
                 </div>
             </div>
             <button 
@@ -181,6 +196,24 @@ export const ChatInterface: React.FC = () => {
             )}
             <div ref={messagesEndRef} />
           </div>
+
+          {/* Quick Actions (Visible when chat is short) */}
+          {messages.length < 3 && !isLoading && (
+            <div className="px-4 pb-2">
+                <p className="text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-2 px-1">Quick Start</p>
+                <div className="flex flex-wrap gap-2">
+                    {QUICK_ACTIONS.map((action, i) => (
+                        <button
+                            key={i}
+                            onClick={() => handleQuickAction(action.prompt)}
+                            className="bg-white border border-gray-200 hover:border-bonk-orange hover:bg-orange-50 text-gray-600 hover:text-bonk-dark text-xs font-bold py-2 px-3 rounded-lg transition-all flex items-center gap-1.5 shadow-sm"
+                        >
+                            {action.label}
+                        </button>
+                    ))}
+                </div>
+            </div>
+          )}
 
           {/* Input Area */}
           <form onSubmit={handleSubmit} className="p-4 bg-white border-t border-gray-200">

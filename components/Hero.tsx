@@ -29,7 +29,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenTerminal, onOpenMemeGen }) => 
                     
                     {/* Floating Badge */}
                     <div className="absolute -bottom-4 -right-4 bg-white text-bonk-black px-4 py-2 rounded-xl font-black shadow-lg z-30 transform rotate-[-5deg] animate-bounce">
-                        v3.0 LIVE
+                        v1.0 LIVE
                     </div>
                  </div>
             </div>

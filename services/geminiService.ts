@@ -139,10 +139,13 @@ export const generateMemeImage = async (prompt: string, style: string = 'cartoon
     let finalPrompt = prompt;
     let finalReferenceImage = referenceImage;
 
+    // Detect "Bonk GPT" trigger
     if (prompt.toLowerCase().includes('bonk gpt') || prompt.toLowerCase().includes('bonkgpt')) {
-       const characterDescription = " (IMPORTANT: The character 'Bonk GPT' is a Shiba Inu dog with bright orange fur, appearing exactly like the provided reference image. Maintain this character identity.) ";
+       // Inject specific visual description for the cyborg/robot Bonk dog
+       const characterDescription = " (IMPORTANT: The character is the famous Shiba Inu Bonk meme dog, but with a futuristic half-robot cyborg face. It has bright orange fur and a glowing cybernetic eye on one side. Maintain this specific cyborg-dog identity.) ";
        finalPrompt = prompt + characterDescription;
        
+       // If no user-provided reference, automatically fetch and attach the official logo to guide the structure
        if (!finalReferenceImage) {
            const logoData = await fetchBonkGptReferenceImage();
            if (logoData) finalReferenceImage = logoData;
