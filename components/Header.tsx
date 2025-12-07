@@ -1,10 +1,18 @@
-import React, { useState } from 'react';
-import { Copy, Check, Menu, X as XIcon } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { Copy, Check, Menu, X as XIcon, Wifi, WifiOff } from 'lucide-react';
+import { getApiKey } from '../services/geminiService';
 
 export const Header: React.FC = () => {
   const [copied, setCopied] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [hasApiKey, setHasApiKey] = useState(false);
   const contractAddress = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx";
+
+  useEffect(() => {
+    // Check for API key on mount to set status indicator
+    const key = getApiKey();
+    setHasApiKey(!!key);
+  }, []);
 
   const handleCopy = () => {
     navigator.clipboard.writeText(contractAddress);
@@ -31,6 +39,12 @@ export const Header: React.FC = () => {
 
           {/* Desktop Nav */}
           <div className="hidden md:flex items-center space-x-4">
+             {/* Status Indicator */}
+            <div className={`flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider border ${hasApiKey ? 'bg-green-50 text-green-700 border-green-200' : 'bg-red-50 text-red-700 border-red-200'}`}>
+                {hasApiKey ? <Wifi size={12} /> : <WifiOff size={12} />}
+                {hasApiKey ? 'Mainnet Online' : 'Demo / Offline'}
+            </div>
+
             <button 
               onClick={handleCopy}
               className="group flex items-center gap-2 px-4 py-2 bg-gray-50 rounded-full border border-gray-200 hover:border-bonk-orange hover:bg-white transition-all text-sm font-mono text-gray-600 hover:text-bonk-orange hover:shadow-md"
@@ -52,7 +66,11 @@ export const Header: React.FC = () => {
           </div>
 
           {/* Mobile menu button */}
-          <div className="md:hidden flex items-center">
+          <div className="md:hidden flex items-center gap-4">
+             {/* Mobile Status Indicator */}
+            <div className={`flex items-center gap-1 ${hasApiKey ? 'text-green-500' : 'text-red-500'}`}>
+                 <span className={`w-2 h-2 rounded-full ${hasApiKey ? 'bg-green-500 animate-pulse' : 'bg-red-500'}`}></span>
+            </div>
             <button onClick={() => setMobileMenuOpen(!mobileMenuOpen)} className="text-gray-800 hover:text-bonk-orange p-2">
               {mobileMenuOpen ? <XIcon size={28} /> : <Menu size={28} />}
             </button>
@@ -63,6 +81,11 @@ export const Header: React.FC = () => {
       {/* Mobile Menu */}
       {mobileMenuOpen && (
         <div className="md:hidden bg-white border-t border-gray-100 p-6 space-y-4 shadow-xl absolute w-full left-0">
+           <div className={`flex items-center justify-center gap-2 p-2 rounded-lg text-xs font-bold uppercase ${hasApiKey ? 'bg-green-50 text-green-700' : 'bg-red-50 text-red-700'}`}>
+                {hasApiKey ? <Wifi size={14} /> : <WifiOff size={14} />}
+                {hasApiKey ? 'System Online (API Connected)' : 'Demo Mode (API Key Missing)'}
+           </div>
+           
            <button 
               onClick={handleCopy}
               className="w-full flex items-center justify-center gap-2 px-4 py-4 bg-gray-50 rounded-xl border border-gray-200 active:border-bonk-orange text-sm font-mono text-gray-600"
