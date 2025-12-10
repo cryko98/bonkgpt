@@ -53,7 +53,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenTerminal, onOpenMemeGen }) => 
                 </h1>
 
                 <p className="text-xl font-bold text-gray-900/80 max-w-lg leading-relaxed">
-                    The world's first AI agent that runs purely on Solana momentum. 
+                    The world's first AI agent that runs purely on USD1 momentum. 
                     Generate apps, memes, and smart contracts instantly.
                 </p>
 
