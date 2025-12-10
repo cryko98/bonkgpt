@@ -6,7 +6,7 @@ export const Header: React.FC = () => {
   const [copied, setCopied] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [hasApiKey, setHasApiKey] = useState(false);
-  const contractAddress = "4PU2Zerz32uVRCMxUGbo7cfgFwN4tW2FDdonvKsbbonk";
+  const contractAddress = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx";
 
   useEffect(() => {
     // Check for API key on mount to set status indicator
@@ -53,7 +53,7 @@ export const Header: React.FC = () => {
               {copied ? <Check size={14} className="text-green-500" /> : <Copy size={14} className="opacity-50 group-hover:opacity-100" />}
             </button>
             
-            <a href="https://x.com/bonkgpt1?s=11" target="_blank" rel="noopener noreferrer" className="p-2 text-gray-500 hover:text-black hover:bg-gray-100 rounded-full transition-colors">
+            <a href="https://x.com" target="_blank" rel="noopener noreferrer" className="p-2 text-gray-500 hover:text-black hover:bg-gray-100 rounded-full transition-colors">
               {/* X.com Logo SVG */}
               <svg viewBox="0 0 24 24" aria-hidden="true" className="h-5 w-5 fill-current">
                 <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"></path>
@@ -94,7 +94,7 @@ export const Header: React.FC = () => {
               {copied ? <Check size={14} className="text-green-500" /> : <Copy size={14} />}
             </button>
             <div className="flex justify-center space-x-8 py-2">
-               <a href="https://x.com/bonkgpt1?s=11" className="text-gray-600 hover:text-bonk-orange">
+               <a href="https://x.com" className="text-gray-600 hover:text-bonk-orange">
                   <svg viewBox="0 0 24 24" aria-hidden="true" className="h-6 w-6 fill-current">
                     <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"></path>
                   </svg>
